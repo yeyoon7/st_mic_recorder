@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from st_mic import st_mic  # 커스텀 오디오 녹음 컴포넌트 불러오기
 
 st.title("Custom Audio Recorder")
@@ -8,4 +9,8 @@ audio_data = st_mic()
 
 if audio_data:
     st.write("Received audio data:")
-    st.audio(audio_data, format="audio/wav")
+    st.audio(audio_data, format="audio/ogg")
+    with open('audio.wav', 'wb') as f:
+        f.write(audio_data)
+    # 파일 경로 출력
+    st.write(os.path.abspath('audio.ogg'))

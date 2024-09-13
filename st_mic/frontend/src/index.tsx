@@ -80,7 +80,7 @@ function onRender(event: Event): void {
 
     // Optionally adjust styles based on Streamlit's theme
     if (data.theme) {
-        const borderStyling = `1px solid ${data.theme.primaryColor}`;
+        const borderStyling = `0px solid ${data.theme.primaryColor}`;
         mic_btn.style.border = borderStyling;
         mic_btn.style.outline = borderStyling;
     }
