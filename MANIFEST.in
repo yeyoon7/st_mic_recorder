@@ -1,1 +1,1 @@
-recursive-include st_mic/frontend/build *
+include frontend/build/*
