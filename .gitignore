@@ -7,8 +7,7 @@ __pycache__/
 *$py.class
 
 # Distribution / packaging
-build/
-!st_mic/frontend/build/
+#build/
 dist/
 eggs/
 .eggs/
