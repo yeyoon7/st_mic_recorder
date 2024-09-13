@@ -6,10 +6,10 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
-    name="streamlit-custom-component",
+    name="st_mic",
     version="0.0.1",
-    author="John Smith",
-    author_email="john@example.com",
+    author="Yeyoon Choi",
+    author_email="ooyy1110@gmail.com",
     description="Streamlit component that allows you to do X",
     long_description=long_description,
     long_description_content_type="text/markdown",
