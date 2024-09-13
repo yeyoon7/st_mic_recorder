@@ -13,7 +13,7 @@ setuptools.setup(
     description="Streamlit component that allows you to do X",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="",
+    url="https://github.com/yeyoon7/st_mic_recorder",
     packages=setuptools.find_packages(),
     include_package_data=True,
     classifiers=[],
