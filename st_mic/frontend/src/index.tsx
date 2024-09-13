@@ -36,18 +36,17 @@ function SetupStream(stream: MediaStream) {
         const audioURL = window.URL.createObjectURL(blob);
         playback.src = audioURL;
 
-        // Convert audio to base64 and send to Streamlit
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = function () {
-            const base64data = reader.result as string;
+        // Convert audio blob to byte array (ArrayBuffer) and send to Streamlit
+        blob.arrayBuffer().then((arrayBuffer) => {
+            // Convert ArrayBuffer to a Uint8Array (byte array)
+            const byteArray = new Uint8Array(arrayBuffer);
 
-            // Send audio data to Streamlit
-            Streamlit.setComponentValue(base64data);
-        };
+            // Send byte array to Streamlit
+            Streamlit.setComponentValue(byteArray);
 
-        // Notify Streamlit that the component frame height should be updated
-        Streamlit.setFrameHeight();
+            // Notify Streamlit that the component frame height should be updated
+            Streamlit.setFrameHeight();
+        });
     };
 
     can_record = true;
