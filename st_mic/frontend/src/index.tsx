@@ -31,7 +31,7 @@ function SetupStream(stream: MediaStream) {
     };
 
     recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'audio/wav; codecs=opus' });
+        const blob = new Blob(chunks, { type: 'audio/wav' });
         chunks = [];
         const audioURL = window.URL.createObjectURL(blob);
         playback.src = audioURL;
@@ -78,11 +78,11 @@ function onRender(event: Event): void {
     const data = (event as CustomEvent<RenderData>).detail;
 
     // Optionally adjust styles based on Streamlit's theme
-    if (data.theme) {
-        const borderStyling = `1px solid ${data.theme.primaryColor}`;
-        mic_btn.style.border = borderStyling;
-        mic_btn.style.outline = borderStyling;
-    }
+    //if (data.theme) {
+    //    const borderStyling = `1px solid ${data.theme.primaryColor}`;
+    //    mic_btn.style.border = borderStyling;
+    //    mic_btn.style.outline = borderStyling;
+    //}
 
     // Notify Streamlit of the component's frame height change
     Streamlit.setFrameHeight();
