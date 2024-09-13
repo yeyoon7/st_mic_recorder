@@ -24,6 +24,7 @@ function SetupAudio() {
 
 // Initialize the media recorder
 function SetupStream(stream: MediaStream) {
+    // Specify the correct MIME type (ogg or webm for Opus)
     recorder = new MediaRecorder(stream);
 
     recorder.ondataavailable = (e: BlobEvent) => {
@@ -31,7 +32,7 @@ function SetupStream(stream: MediaStream) {
     };
 
     recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'audio/wav' });
+        const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });  // Save in ogg format
         chunks = [];
         const audioURL = window.URL.createObjectURL(blob);
         playback.src = audioURL;
@@ -78,11 +79,11 @@ function onRender(event: Event): void {
     const data = (event as CustomEvent<RenderData>).detail;
 
     // Optionally adjust styles based on Streamlit's theme
-    //if (data.theme) {
-    //    const borderStyling = `1px solid ${data.theme.primaryColor}`;
-    //    mic_btn.style.border = borderStyling;
-    //    mic_btn.style.outline = borderStyling;
-    //}
+    if (data.theme) {
+        const borderStyling = `1px solid ${data.theme.primaryColor}`;
+        mic_btn.style.border = borderStyling;
+        mic_btn.style.outline = borderStyling;
+    }
 
     // Notify Streamlit of the component's frame height change
     Streamlit.setFrameHeight();
