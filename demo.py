@@ -9,8 +9,12 @@ audio_data = st_mic()
 
 if audio_data:
     st.write("Received audio data:")
-    st.audio(audio_data, format="audio/ogg")
-    with open('audio.wav', 'wb') as f:
-        f.write(audio_data)
+    st.audio(audio_data, format="audio/wav")
+
+    # 파일을 .ogg로 저장
+    file_path = 'audio.wav'
+    with open(file_path, 'wb') as f:
+        f.write(audio_data.getvalue())
+
     # 파일 경로 출력
-    st.write(os.path.abspath('audio.ogg'))
+    st.write("Saved audio file:", os.path.abspath(file_path))
