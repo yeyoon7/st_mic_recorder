@@ -1,5 +1,7 @@
 import os
 import streamlit.components.v1 as components
+import streamlit as st
+from io import BytesIO
 
 # 개발 중인지 배포 중인지 여부를 나타내는 변수
 _RELEASE = False
@@ -29,10 +31,31 @@ def st_mic(key=None):
 
     Returns
     -------
-    str
-        The base64-encoded audio data from the component.
+    BytesIO
+        The recorded audio data as a byte stream.
     """
     # 컴포넌트를 호출하고 데이터 받아오기
     component_value = _component_func(key=key)
+    
+    if component_value is None:
+        st.error("No data received from the component.")
+        return None
 
-    return component_value
+    #st.write(f"component_value: {component_value}")  # 전달된 데이터 확인 (디버깅용)
+    if isinstance(component_value, dict):
+        # 딕셔너리에서 byteArray 추출
+        byte_array = component_value.get("byteArray")
+
+        if byte_array and isinstance(byte_array, list):
+            # byteArray가 list일 경우 이를 bytes로 변환
+            byte_array = bytes(byte_array)
+
+        if byte_array and isinstance(byte_array, (bytes, bytearray)):
+            # 바이트 데이터를 BytesIO로 변환
+            audio_data = BytesIO(byte_array)
+            return audio_data
+        else:
+            st.error("Invalid byteArray or missing data.")
+    else:
+        st.error(f"Unexpected data format: {type(component_value)}")
+    return None
