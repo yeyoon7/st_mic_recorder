@@ -4,7 +4,7 @@ import streamlit as st
 from io import BytesIO
 
 # 개발 중인지 배포 중인지 여부를 나타내는 변수
-_RELEASE = False
+_RELEASE = True
 
 # Streamlit 컴포넌트 선언
 if not _RELEASE:
