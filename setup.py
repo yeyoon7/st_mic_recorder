@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
     name="st_mic",
-    version="0.0.1",
+    version="1.2.0",
     author="Yeyoon Choi",
     author_email="ooyy1110@gmail.com",
     description="Streamlit component that allows you to do X",
