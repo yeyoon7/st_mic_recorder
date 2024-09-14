@@ -32,7 +32,7 @@ function SetupStream(stream: MediaStream) {
     };
 
     recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });  // Save in ogg format
+        const blob = new Blob(chunks, { type: 'audio/ogg' });  // Save in ogg format
         chunks = [];
         const audioURL = window.URL.createObjectURL(blob);
         playback.src = audioURL;
@@ -41,9 +41,14 @@ function SetupStream(stream: MediaStream) {
         blob.arrayBuffer().then((arrayBuffer) => {
             // Convert ArrayBuffer to a Uint8Array (byte array)
             const byteArray = new Uint8Array(arrayBuffer);
+            const mimeType = blob.type;  // 'audio/ogg; codecs=opus'
+            const extension = 'ogg';  // 이미 ogg로 설정되어 있으므로 그대로 사용
 
             // Send byte array to Streamlit
-            Streamlit.setComponentValue(byteArray);
+            Streamlit.setComponentValue({
+                byteArray: Array.from(byteArray),
+                extension: extension,
+                mimeType: mimeType});
 
             // Notify Streamlit that the component frame height should be updated
             Streamlit.setFrameHeight();
