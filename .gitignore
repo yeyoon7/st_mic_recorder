@@ -72,3 +72,5 @@ template-reactless/**/package-lock.json
 buildcontext/
 
 .env
+
+demo/
