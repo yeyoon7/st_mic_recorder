@@ -35,6 +35,7 @@ function SetupStream(stream: MediaStream) {
         const blob = new Blob(chunks, { type: 'audio/ogg' });  // Save in ogg format
         chunks = [];
         const audioURL = window.URL.createObjectURL(blob);
+        console.log(audioURL);  // URL을 콘솔에 출력
         playback.src = audioURL;
 
         // Convert audio blob to byte array (ArrayBuffer) and send to Streamlit
@@ -48,7 +49,8 @@ function SetupStream(stream: MediaStream) {
             Streamlit.setComponentValue({
                 byteArray: Array.from(byteArray),
                 extension: extension,
-                mimeType: mimeType});
+                mimeType: mimeType,
+                isRecording: false});
 
             // Notify Streamlit that the component frame height should be updated
             Streamlit.setFrameHeight();
@@ -67,6 +69,10 @@ function ToggleMic() {
     if (is_recording) {
         recorder?.start();
         mic_btn.classList.add('is-recording');
+        // 녹음이 시작될 때 isRecording을 true로 설정
+        Streamlit.setComponentValue({
+            isRecording: true  // 녹음 시작
+        });
     } else {
         recorder?.stop();
         mic_btn.classList.remove('is-recording');
